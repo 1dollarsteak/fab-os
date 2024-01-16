@@ -16,7 +16,7 @@ void print_char(char character, int col, int row, char attribute_byte) {
   }
 
   if (character == '\n') {
-    int rows = offset / (2*MAX_COLS);
+    //int rows = offset / (2*MAX_COLS);
     //offset = get_screen_offset(79, rows);
   } else {
     offset = 1;

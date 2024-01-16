@@ -5,8 +5,8 @@ void main() {
   //print_at("0", 1, 1);
   const char* a = "XXX";
   char* video_memory = (char*) 0xb8000; // 0x101b?
-  video_memory[1] = a[0];
-  video_memory[2] = 0x0f;
+  video_memory[0] = a[0];
+  video_memory[1] = 0x0f;
   //print("text");
   // b 0x1031 (bisschen eher 1023)
   // (watch write 0xb8000)

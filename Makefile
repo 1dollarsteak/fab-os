@@ -12,13 +12,13 @@ os-image: boot/boot_sect.bin kernel/kernel.bin
 	cat $^ > os-image
 
 kernel/kernel.bin: kernel/kernel_entry.o ${OBJ}
-	ld -o $@ $^ -T link.ld
+	ld -m elf_i386 -o $@ $^ -T link.ld
 
 %.o : %.c ${HEADERS}
-	gcc -fno-builtin -ffreestanding -c $< -o $@
+	gcc -m32 -fno-builtin -ffreestanding -Wall -Werror -O0 -c $< -o $@
 
 %.o : %.asm
-	nasm $< -f elf64 -o $@
+	nasm $< -f elf -o $@
 
 %.bin : %.asm
 	nasm $< -f bin -I './boot/tools/' -o $@
