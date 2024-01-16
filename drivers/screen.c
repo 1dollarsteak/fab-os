@@ -12,14 +12,14 @@ void print_char(char character, int col, int row, char attribute_byte) {
   if (col >= 0 && row >= 0) {
     offset = get_screen_offset(col, row);
   } else {
-    //offset = get_cursor();
+    offset = get_cursor();
   }
 
   if (character == '\n') {
     int rows = offset / (2*MAX_COLS);
     //offset = get_screen_offset(79, rows);
   } else {
-    //offset = 1;
+    offset = 1;
     vidmem[offset] = character;
     vidmem[offset+1] = attribute_byte;
   }
@@ -65,19 +65,18 @@ void set_cursor(int offset) {
   port_byte_out(REG_SCREEN_DATA, (unsigned char)(offset >> 8));
 }
 
-void print_at(char* message, int col, int row) {
+void print_at(char *message, int col, int row) {
   if (col >= 0 && row >= 0) {
-    //set_cursor(get_screen_offset(col, row));
+    set_cursor(get_screen_offset(col, row));
   }
   int i = 0;
-  while(message[i] != 0) {
+  //while(message[i] != 0) {
     print_char(message[i++], col, row, WHITE_ON_BLACK);
-  }
+  //}
 }
 
 void print(char* message) {
-  //print_at(message, -1, -1);
-  print_at(message, 0, 0);
+  print_at(message, -1, -1);
 }
 
 void clear_screen() {

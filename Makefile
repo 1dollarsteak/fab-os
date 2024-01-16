@@ -8,14 +8,14 @@ all: os-image
 run: all
 	bochs -q
 
-os-image: boot/boot_sect.bin kernel.bin
+os-image: boot/boot_sect.bin kernel/kernel.bin
 	cat $^ > os-image
 
-kernel.bin: kernel/kernel_entry.o ${OBJ}
-	ld -o $@ -Ttext 0x1000 $^ --oformat binary -T linker
+kernel/kernel.bin: kernel/kernel_entry.o ${OBJ}
+	ld -o $@ $^ -T link.ld
 
 %.o : %.c ${HEADERS}
-	gcc -ffreestanding -c $< -o $@
+	gcc -fno-builtin -ffreestanding -c $< -o $@
 
 %.o : %.asm
 	nasm $< -f elf64 -o $@
