@@ -19,7 +19,6 @@ void print_char(char character, int col, int row, char attribute_byte) {
     //int rows = offset / (2*MAX_COLS);
     //offset = get_screen_offset(79, rows);
   } else {
-    offset = 1;
     vidmem[offset] = character;
     vidmem[offset+1] = attribute_byte;
   }
@@ -44,7 +43,7 @@ int get_screen_offset(int col, int row) {
   cursor_offset += port_byte_in(REG_SCREEN_DATA);*/
 
   //cursor_offset -= 2*MAX_COLS;
-  cursor_offset = ((col * 2) + (row * 160)+1);
+  cursor_offset = ((col * 2) + (row * 160));
   return cursor_offset;
 }
 
@@ -70,9 +69,9 @@ void print_at(char *message, int col, int row) {
     set_cursor(get_screen_offset(col, row));
   }
   int i = 0;
-  //while(message[i] != 0) {
+  while(message[i] != 0) {
     print_char(message[i++], col, row, WHITE_ON_BLACK);
-  //}
+  }
 }
 
 void print(char* message) {
